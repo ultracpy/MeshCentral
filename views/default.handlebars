@@ -1450,6 +1450,11 @@
     </div>
     <script type="text/javascript">
         'use strict';
+        // mark_cpy
+		const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var display_index_param = urlParams.get('display_index')
+
         var random = '{{{randomlength}}}' // Random length string for BREACH mitigation
 
         // Process server-side web state
@@ -8948,7 +8953,7 @@
             // Enable browser clipboard read if supported
             var autoclipboard = ((desktop) && (desktop.contype == 4)) ? desktopsettings.rdpautoclipboard : desktopsettings.autoclipboard;
             QV('DeskClipboardOutButton', online && inputAllowed && (desktop != null) && ((features2 & 0x1000) == 0) && (navigator.clipboard != null) && (navigator.clipboard.readText != null) && ((autoclipboard != true) || (navigator.clipboard == null) || (navigator.clipboard.readText == null)));
-            QV('d7deskAutoClipboardLabel', (navigator.clipboard.readText != null) && ((features2 & 0x1000) == 0));
+            // mark_cpy QV('d7deskAutoClipboardLabel', (navigator.clipboard.readText != null) && ((features2 & 0x1000) == 0));
             QV('DeskClipboardInButton', online && inputAllowed && (desktop != null) && ((features2 & 0x0800) == 0) && (navigator.clipboard != null) && (navigator.clipboard.writeText != null) && ((autoclipboard != true) || (navigator.clipboard == null) || (navigator.clipboard.readText == null)));
             if (deskState != 3) {
                 QV('DeskInputLockedButton', false);
@@ -9335,6 +9340,7 @@
                     desktop.startTime = new Date();
                     deskLastClipboardSent = null;
                     if (updateSessionTimer == null) { updateSessionTimer = setInterval(updateSessionTime, 1000); }
+					desktop.m.SetDisplay(display_index_param)// mark_cpy
                     break;
                 default:
                     //console.log('Unknown onDesktopStateChange state', state);

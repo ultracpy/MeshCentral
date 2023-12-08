@@ -107,7 +107,7 @@ module.exports.CreateWebRelayServer = function (parent, db, args, certificates, 
             res.set({
                 'strict-transport-security': 'max-age=60000; includeSubDomains',
                 'Referrer-Policy': 'no-referrer',
-                'x-frame-options': 'SAMEORIGIN',
+                // 'x-frame-options': 'SAMEORIGIN',
                 'X-XSS-Protection': '1; mode=block',
                 'X-Content-Type-Options': 'nosniff',
                 'Content-Security-Policy': "default-src 'self'; style-src 'self' 'unsafe-inline';"

@@ -1318,10 +1318,10 @@ function startMeshCommander() {
                 var meshcommander = null;
                 try { meshcommander = fs.readFileSync('meshcommander.htm'); } catch (e) { }
                 if (meshcommander != null) {
-                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'X-Frame-Options': 'DENY', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked' });
+                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked' });
                     rsp.end(meshcommander);
                 } else {
-                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'X-Frame-Options': 'DENY', 'Content-Type': 'text/html', 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', ETag: FullSite_IntelAmtLocalWebApp_etag });
+                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'Content-Type': 'text/html', 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', ETag: FullSite_IntelAmtLocalWebApp_etag });
                     rsp.end(Buffer.from(FullSite_IntelAmtLocalWebApp, 'base64'));
                 }
                 break;
@@ -1813,10 +1813,10 @@ function startMeshCommanderLms() {
                 var lmscommander = null;
                 try { lmscommander = fs.readFileSync('lmscommander.htm'); } catch (e) { }
                 if (lmscommander != null) {
-                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'X-Frame-Options': 'DENY', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked' });
+                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'Content-Type': 'text/html', 'Transfer-Encoding': 'chunked' });
                     rsp.end(lmscommander);
                 } else {
-                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'X-Frame-Options': 'DENY', 'Content-Type': 'text/html', 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', ETag: _IntelAmtWebApp_etag });
+                    rsp.writeHead(200, 'OK', { Server: 'JSLMS', 'Cache-Control': 'max-age=0, no-cache', 'Content-Type': 'text/html', 'Content-Encoding': 'gzip', 'Transfer-Encoding': 'chunked', ETag: _IntelAmtWebApp_etag });
                     rsp.end(Buffer.from(_IntelAmtWebApp, "base64"));
                 }
                 break;

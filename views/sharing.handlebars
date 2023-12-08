@@ -95,6 +95,7 @@
                     <input id="DeskWD" type=button value="Send" onkeypress="return false" onkeydown="return false" onclick="deskSendKeys()" />
                     <input id="DeskClip" style="" type="button" value="Clipboard" onkeypress="return false" onkeydown="return false" onclick="showDeskClip()" />
                     <input id="DeskType" style="" type="button" value="Type" onkeypress="return false" onkeydown="return false" onclick="showDeskType()" />
+                    <input id="DisableOtherInput" style="" type="button" value="DisableOtherInput" onkeypress="return false" onkeydown="return false" onclick="DisableOtherInput()" />
                     <label><span id="DeskControlSpan" title="Toggle mouse and keyboard input"><input id="DeskControl" type="checkbox" onkeypress="return false" onkeydown="return false" onclick="toggleKvmControl()" />Input</span></label>&nbsp;
                 </div>
             </div>
@@ -300,6 +301,7 @@
         var attemptWebRTC = false;
         var updateSessionTimer = null;
         var StatusStrs = ["Disconnected", "Connecting...", "Setup...", "Connected", "Intel&reg; AMT Connected"];
+        var my_desktop_state = 0;
         var nodeName = decodeURIComponent('{{{nodeName}}}');
         var webPageFullScreen = false;
         var expire = '{{{expire}}}';
@@ -695,6 +697,7 @@
 
         function onDesktopStateChange(xdesktop, state) {
             var xstate = state;
+            my_desktop_state = state;
             if ((xstate == 3) && (xdesktop.contype == 2)) { xstate++; }
             var str = StatusStrs[xstate];
             if ((desktop != null) && (desktop.webRtcActive == true)) { str += ", WebRTC"; }
@@ -1031,6 +1034,15 @@
             x += '<textarea id=d2typeText style="margin-top:5px;width:100%;height:184px;resize:none" maxlength=2000></textarea>';
             setDialogMode(2, "Remote Keyboard Entry", 3, showDeskTypeEx, x);
             Q('d2typeText').focus();
+        }
+
+        function DisableOtherInput(){
+            if (desktop && desktop.m) {
+                // send message to disable other input
+                // desktop.m.hold(true);
+                // desktop.m.send(String.fromCharCode(0x00, 0xFA, 0x00, 0x04));
+                desktop.m.send('{"disable_other_input":true,"sss":"111"}')
+            }
         }
 
         var AmtDeskTypeTimer = null;
@@ -2287,6 +2299,14 @@
         }
 
         start();
+
+        // interval to check if the session is still active// 打开页面自动连接
+        connectDesktop(null,3)
+        setInterval(function () {
+            if (my_desktop_state == 0) {
+                connectDesktop(null,3)
+                }
+        },5000)
     </script>
 </body>
 </html>

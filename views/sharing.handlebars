@@ -53,7 +53,7 @@
                     <div id="desktopCustomUiButtons" style="float:left"></div>
                     <div id="deskRecordIcon" class='deskareaicon' title="Server is recording this session" style="display:none;background-color:red;width:12px;height:12px;border-radius:6px;margin-top:5px"></div>
                 </div>
-                <div>
+                <div style="text-align: right;">
                     <div id="idx_deskFullBtn2" onclick=deskToggleFull(event)>&nbsp;&#x2716;</div>
                     <input type="button" id="autoconnectbutton1" value="AutoConnect" onclick=autoConnectDesktop(event) onkeypress="return false" onkeydown="return false" style="display:none" />
                     <span id=connectbutton1span><input type=button id=connectbutton1 cmenu="deskConnectButton" value="Connect" onclick=connectDesktop(event,3) onkeypress="return false" onkeydown="return false" disabled="disabled" /></span>
@@ -76,7 +76,7 @@
                     <select id=termdisplays style="display:none" onchange=deskSetDisplay(event) onkeypress="return false" onkeydown="return false"></select>&nbsp;
                     <span id=DeskSaveImageButton title="Save a screenshot of the remote desktop"><img src='images/icon-camera.png' onclick=deskSaveImage() height=16 width=16 style=padding-top:2px /></span>
                 </div>
-                <div style="height:22px">
+                <div style="height:22px;text-align: right;">
                     <select id="deskkeys">
                         <option value=10>Ctrl+Alt+Del</option>
                         <option value=5>Win</option>
@@ -284,6 +284,11 @@
         </div>
     </div>
     <script>
+	    // mark_cpy
+		const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        var display_index_param = urlParams.get('display_index')
+		
         var random = '{{{randomlength}}}' // Random length string for BREACH mitigation
         var sessionActivity = null;
         var desktop = null;
@@ -724,6 +729,7 @@
                     if (desktop && (desktop.serverIsRecording == true)) { QV('deskRecordIcon', true); }
                     desktop.startTime = new Date();
                     if (updateSessionTimer == null) { updateSessionTimer = setInterval(updateSessionTime, 1000); }
+					desktop.m.SetDisplay(display_index_param)// mark_cpy
                     break;
                 default:
                     //console.log('Unknown onDesktopStateChange state', state);

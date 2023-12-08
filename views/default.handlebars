@@ -1450,11 +1450,6 @@
     </div>
     <script type="text/javascript">
         'use strict';
-        // mark_cpy
-		const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        var display_index_param = urlParams.get('display_index')
-
         var random = '{{{randomlength}}}' // Random length string for BREACH mitigation
 
         // Process server-side web state
@@ -9340,7 +9335,6 @@
                     desktop.startTime = new Date();
                     deskLastClipboardSent = null;
                     if (updateSessionTimer == null) { updateSessionTimer = setInterval(updateSessionTime, 1000); }
-					desktop.m.SetDisplay(display_index_param)// mark_cpy
                     break;
                 default:
                     //console.log('Unknown onDesktopStateChange state', state);

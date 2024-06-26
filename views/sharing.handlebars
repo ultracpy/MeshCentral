@@ -286,8 +286,24 @@
     <script>
 	    // mark_cpy
 		const queryString = window.location.search;
+        console.log('queryString',queryString)
         const urlParams = new URLSearchParams(queryString);
+        console.log('urlParams',urlParams)
         var display_index_param = urlParams.get('display_index')
+        console.log('display_index_param',display_index_param)
+		
+		this.addEventListener('mousemove',function(e){
+			window.parent.postMessage('message',"*")
+		})
+		this.addEventListener('mousedown',function(e){
+			window.parent.postMessage('message',"*")
+		})
+		this.addEventListener('mouseup',function(e){
+			window.parent.postMessage('message',"*")
+		})
+		this.addEventListener('mousewheel',function(e){
+			window.parent.postMessage('message',"*")
+		})
 		
         var random = '{{{randomlength}}}' // Random length string for BREACH mitigation
         var sessionActivity = null;
@@ -729,6 +745,7 @@
                     if (desktop && (desktop.serverIsRecording == true)) { QV('deskRecordIcon', true); }
                     desktop.startTime = new Date();
                     if (updateSessionTimer == null) { updateSessionTimer = setInterval(updateSessionTime, 1000); }
+                    console.log('display_index:',display_index_param)
 					desktop.m.SetDisplay(display_index_param)// mark_cpy
                     break;
                 default:
@@ -2279,7 +2296,7 @@
         function haltEvent(e) { if (e.preventDefault) e.preventDefault(); if (e.stopPropagation) e.stopPropagation(); return false; }
         function pad2(num) { var s = '00' + num; return s.substr(s.length - 2); }
         function format(format) { var args = Array.prototype.slice.call(arguments, 1); return format.replace(/{(\d+)}/g, function (match, number) { return typeof args[number] != 'undefined' ? args[number] : match; }); };
-        function setSessionActivity() { sessionActivity = Date.now(); /*QH('idleTimeoutNotify', '');*/ }
+        function setSessionActivity() { sessionActivity = Date.now(); window.parent.postMessage('message',"*");/*QH('idleTimeoutNotify', '');*/ }
         function printDate(d) { return d.toLocaleDateString(urlargs.locale); }
         function printTime(d) { return d.toLocaleTimeString(urlargs.locale); }
         function printDateTime(d) { return d.toLocaleString(urlargs.locale); }
